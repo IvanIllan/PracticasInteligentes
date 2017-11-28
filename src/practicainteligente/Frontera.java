@@ -14,25 +14,24 @@ public class Frontera {
     }
     
     public void Insertar (Nodo e) {
-//        PriorityQueue<Nodo> qaux=new PriorityQueue();
-//        qaux.clear();
-//        boolean encontrado=false;
-//        Nodo aux=null;
-//        while (!q.isEmpty()) {            
-//            aux=(Nodo) q.poll();
-//            qaux.add(aux);
-//            if (e.getE().equals(aux.getE()) && e.getValor()>aux.getValor()) {
-//                encontrado=true;
-//                System.out.println("iguales");
-//            }
-//        }        
-//        if (!encontrado)           
-//            qaux.add(e);
-//        q.clear();
-//        while (!qaux.isEmpty())
-//            q.add(qaux.poll());
-//        System.out.println("SALE");
-        
+        PriorityQueue<Nodo> qaux=new PriorityQueue();
+        qaux.clear();
+        boolean encontrado=false;
+        Nodo aux=null;
+        while (!q.isEmpty()) {            
+            aux=(Nodo) q.poll();
+            qaux.add(aux);
+            if (e.getE().equals(aux.getE()) && e.getValor()>aux.getValor()) {
+                encontrado=true;
+                System.out.println("iguales");
+            }
+        }        
+        if (!encontrado)           
+            qaux.add(e);
+        q.clear();
+        while (!qaux.isEmpty())
+            q.add(qaux.poll());
+        System.out.println("SALE DE LA FRONTERA");
           q.add(e);
     }
     
