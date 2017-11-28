@@ -8,30 +8,43 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-enum tipoBusqueda {anchura,profundidad,costeuniforme};
+enum tipoBusqueda {anchura,profundidad,costeuniforme,Aasterisco};
 
 public class PracticaInteligente {
 
     public static void main(String[] args) throws IOException {
-         
-    Estado inicio=LeerEscribir.leerTerreno("terreno.txt"); 
+    Scanner sc=new Scanner(System.in);
+    int n;
+    Estado inicio=null;
+    System.out.println("Seleccione la opcion que desea \n1.-Lectura por teclado\n2.-Lectura por fichero");
+    n=sc.nextInt();
+    if(n==1){
+    inicio=LeerEscribir.LecturaTeclado(); 
+    }else if(n==2){
+    inicio=LeerEscribir.leerTerreno("terreno.txt"); 
+    }
+    
     System.out.println(inicio);
     Problema prob = new Problema (new EspaciodeEstados(),inicio);
     int Prof_Max=5;
     int Inc_Prof=1;
     boolean solucion=false;
-    Scanner sc=new Scanner(System.in);
-    System.out.println ("Escribe 1,2,3 (Anchura, Profundidad, Coste Uniforme): ");
+   
+
+    System.out.println ("Escribe 1,2,3,4(Anchura, Profundidad, Coste Uniforme, A*): ");
     int opcion=sc.nextInt();
     switch (opcion) {
         case 1: 
-            solucion=Busqueda_Acotada (prob, tipoBusqueda.anchura, Prof_Max);
+            solucion=Busqueda_Acotada (prob, tipoBusqueda.anchura, Prof_Max, 1);
             break;
         case 2:
             solucion=Busqueda (prob, tipoBusqueda.profundidad, Prof_Max,Inc_Prof);
             break;
         case 3:
-            solucion=Busqueda_Acotada (prob, tipoBusqueda.costeuniforme, Prof_Max);
+            solucion=Busqueda_Acotada (prob, tipoBusqueda.costeuniforme, Prof_Max, 3);
+            break;
+        case 4:
+            solucion=Busqueda_Acotada (prob, tipoBusqueda.Aasterisco, Prof_Max, 4);
             break;
         default:
             System.out.println("Opcion invalida");
@@ -42,17 +55,21 @@ public class PracticaInteligente {
     
     }
     
-    public static boolean Busqueda_Acotada (Problema prob, tipoBusqueda estrategia, int Prof_Max) {        
+    public static boolean Busqueda_Acotada (Problema prob, tipoBusqueda estrategia, int Prof_Max, int opcion) {        
         Frontera frontera = new Frontera();
         frontera.CrearFrontera();
         Nodo n_inicial= new Nodo(null,prob.getEstadoinicial(),null,0,0,0);
         frontera.Insertar(n_inicial);
         boolean solucion=false;
         Nodo n_actual=null;
+        boolean heurist=true;
         
         while (!solucion && !frontera.EsVacia()) {
             n_actual=frontera.Elimina();
-            //System.out.println(n_actual.getE());
+              if(n_actual.getHeuristica(n_actual.getE())==0){
+                solucion=true;
+            }    
+            
             if (prob.Objetivo(n_actual.getE()))
                 solucion=true;
             else {
@@ -60,14 +77,21 @@ public class PracticaInteligente {
                ArrayList<Nodo> LN= CreaListaNodosArbol(LS,n_actual,Prof_Max,estrategia);                
                for (int i=0;i<LN.size();i++) 
                    frontera.Insertar(LN.get(i));               
-            }            
+            }
+                  
         }
         if (solucion) {
-            while (n_actual.getPadre()!=null) {
+            while (heurist && n_actual.getPadre()!=null) {
+                 System.out.println(""+n_actual.getHeuristica(n_actual.getE()));
+                if((n_actual.getHeuristica(n_actual.getE())==0) && opcion==4){
+                    heurist=false;
+                }
                 System.out.print ("Accion: " + n_actual.getA()+ " \nEstado: " + n_actual.getE() + "Coste " + n_actual.getValor()+ "\n");
                 n_actual=n_actual.getPadre();
+
+               
             }
-                
+               
         }        
         return solucion;
     }
@@ -85,6 +109,8 @@ public class PracticaInteligente {
                     aux= new Nodo(n_actual, s.getE(), s.getA(),n_actual.getProfundidad()+1,n_actual.getProfundidad()+1, (n_actual.getProfundidad()+1)*-1);
                if (estrategia==tipoBusqueda.costeuniforme)
                     aux= new Nodo(n_actual, s.getE(), s.getA(),s.getCoste(),n_actual.getProfundidad()+1, n_actual.getCosto()+s.getCoste());
+               if (estrategia==tipoBusqueda.Aasterisco)
+                    aux= new Nodo(n_actual, s.getE(), s.getA(),s.getCoste(),n_actual.getProfundidad()+1, n_actual.getCosto()+s.getCoste()+ n_actual.getHeuristica(n_actual.getE()));
                LN.add(aux);
             }
         }
@@ -95,7 +121,7 @@ public class PracticaInteligente {
         int Prof_Actual=Inc_Prof;
         boolean solucion = false;
         while (!solucion && Prof_Actual<=Prof_Max) {
-            solucion=Busqueda_Acotada(prob,estrategia,Prof_Actual);
+            solucion=Busqueda_Acotada(prob,estrategia,Prof_Actual, 2);
             Prof_Actual+=Inc_Prof;
         }
         return solucion;        

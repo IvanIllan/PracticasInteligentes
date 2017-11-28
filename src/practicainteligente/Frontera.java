@@ -23,7 +23,6 @@ public class Frontera {
             qaux.add(aux);
             if (e.getE().equals(aux.getE()) && e.getValor()>aux.getValor()) {
                 encontrado=true;
-                System.out.println("iguales");
             }
         }        
         if (!encontrado)           
@@ -31,7 +30,6 @@ public class Frontera {
         q.clear();
         while (!qaux.isEmpty())
             q.add(qaux.poll());
-        System.out.println("SALE DE LA FRONTERA");
           q.add(e);
     }
     

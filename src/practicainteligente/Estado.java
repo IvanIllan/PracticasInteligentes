@@ -30,7 +30,9 @@ public class Estado {
     public Casilla getTractor() {
         return tractor;
     }
-
+    public Casilla[][] getCasillas(){
+        return casillas;
+    }
     public int getK() {
         return this.k;
     }

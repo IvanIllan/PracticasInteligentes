@@ -7,10 +7,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class LeerEscribir {
-    
+    public static Estado LecturaTeclado(){
+        Scanner sc = new Scanner(System.in);
+        Random rn = new Random();
+        Casilla tractor =new Casilla(sc.nextInt(),sc.nextInt());
+        int k=sc.nextInt();
+        int max=sc.nextInt();
+        int f=sc.nextInt();
+        int c=sc.nextInt();
+        Estado terreno=new Estado(tractor,k,max,f,c);
+        int v[]=new int[f*c];
+        int indice=0;
+        for(int i=0;i<f;i++){
+            for(int j=0;j<c;j++){
+                v[indice]=rn.nextInt(10);
+                indice++;
+            }
+        }
+        
+        terreno.iniciarTerreno(v);
+        return terreno;
+    }
     public static Estado leerTerreno (String cadena) throws IOException{	
         String linea;        
         BufferedReader br = new BufferedReader (new FileReader (cadena));

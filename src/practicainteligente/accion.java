@@ -1,4 +1,4 @@
-package allanarterreno;
+package practicainteligente;
 
 import java.util.ArrayList;
 
