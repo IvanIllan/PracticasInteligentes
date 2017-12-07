@@ -16,12 +16,14 @@ public class PracticaInteligente {
     Scanner sc=new Scanner(System.in);
     int n;
     Estado inicio=null;
-    System.out.println("Seleccione la opcion que desea \n1.-Lectura por teclado\n2.-Lectura por fichero");
+    System.out.println("Seleccione la opcion que desea \n1.-Lectura por teclado\n2.-Lectura por fichero\n3.-Inicialización random");
     n=sc.nextInt();
     if(n==1){
-    inicio=LeerEscribir.LecturaTeclado(); 
+        inicio=LeerEscribir.LecturaTeclado(); 
     }else if(n==2){
-    inicio=LeerEscribir.leerTerreno("terreno.txt"); 
+        inicio=LeerEscribir.leerTerreno("terreno.txt"); 
+    }else if(n==3){
+        inicio=LeerEscribir.Random();
     }
     
     System.out.println(inicio);

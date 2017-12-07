@@ -21,7 +21,7 @@ public class Frontera {
         while (!q.isEmpty()) {            
             aux=(Nodo) q.poll();
             qaux.add(aux);
-            if (e.getE().equals(aux.getE()) && e.getValor()>aux.getValor()) {
+            if (e.getE().isEquals(aux.getE()) && e.getValor()>aux.getValor()){  
                 encontrado=true;
             }
         }        

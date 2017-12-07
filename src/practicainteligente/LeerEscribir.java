@@ -15,17 +15,22 @@ public class LeerEscribir {
     public static Estado LecturaTeclado(){
         Scanner sc = new Scanner(System.in);
         Random rn = new Random();
+        System.out.println("Introduce la posicion x y del tractor");
         Casilla tractor =new Casilla(sc.nextInt(),sc.nextInt());
+        System.out.println("Introduce el numero que debe contener cada casilla");
         int k=sc.nextInt();
+        System.out.println("Introduce el numero maximo que puede contener");
         int max=sc.nextInt();
+        System.out.println("Introduce el numero de dimensiones del tablero");
         int f=sc.nextInt();
         int c=sc.nextInt();
         Estado terreno=new Estado(tractor,k,max,f,c);
         int v[]=new int[f*c];
         int indice=0;
+        System.out.println("Introduce las cantidades de las casillas");
         for(int i=0;i<f;i++){
             for(int j=0;j<c;j++){
-                v[indice]=rn.nextInt(10);
+                v[indice]=sc.nextInt();
                 indice++;
             }
         }
@@ -57,7 +62,32 @@ public class LeerEscribir {
         terreno.iniciarTerreno(v);
         return terreno;
   }
-    
+    public static Estado Random(){
+        Scanner sc = new Scanner(System.in);
+        Random rn = new Random();
+        System.out.println("Introduce la posicion x y del tractor");
+        Casilla tractor =new Casilla(sc.nextInt(),sc.nextInt());
+        System.out.println("Introduce el numero que debe contener cada casilla");
+        int k=sc.nextInt();
+        System.out.println("Introduce el numero maximo que puede contener");
+        int max=sc.nextInt();
+        System.out.println("Introduce el numero de dimensiones del tablero");
+        int f=sc.nextInt();
+        int c=sc.nextInt();
+        Estado terreno=new Estado(tractor,k,max,f,c);
+        int v[]=new int[f*c];
+        int indice=0;
+        System.out.println("Se inicializará el tablero aleatoriamente");
+        for(int i=0;i<f;i++){
+            for(int j=0;j<c;j++){
+                v[indice]=rn.nextInt(10);
+                indice++;
+            }
+        }
+        
+        terreno.iniciarTerreno(v);
+        return terreno;
+    }
     public static void escribirTerreno (Estado terreno) throws IOException{
             File archivo = new File("DistribucionesTerreno.txt");
 	                

@@ -20,6 +20,21 @@ public class Estado {
         casillas=new Casilla[filas][columnas];       
     }
     
+    boolean isEquals(Estado e) {
+        boolean igual = true;
+        if(this.tractor.getColumna()!=e.tractor.getColumna() || this.tractor.getFila()!=e.tractor.getFila())
+            igual = false;
+        for(int i=0;i<e.filas;i++){
+            for(int j=0;j<e.getColumnas();j++){
+                if(this.casillas[i][j].getCantidad()!=e.casillas[i][j].getCantidad()){
+                    igual = false;
+                }
+            }
+        }
+        
+        return igual;
+    }
+    
     public void iniciarTerreno (int v[]) {        
         for (int i=0;i<filas;i++) {
             for (int j=0;j<columnas;j++) {
@@ -189,8 +204,6 @@ public class Estado {
             terreno+="\n";
         }    
         return terreno;
-    }
-    
-    
+    }  
 }
 
