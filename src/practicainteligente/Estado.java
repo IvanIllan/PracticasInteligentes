@@ -2,6 +2,9 @@ package practicainteligente;
 
 import static java.lang.Math.abs;
 import java.util.ArrayList;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Estado {
     private Casilla tractor;
@@ -21,18 +24,7 @@ public class Estado {
     }
     
     boolean isEquals(Estado e) {
-        boolean igual = true;
-        if(this.tractor.getColumna()!=e.tractor.getColumna() || this.tractor.getFila()!=e.tractor.getFila())
-            igual = false;
-        for(int i=0;i<e.filas;i++){
-            for(int j=0;j<e.getColumnas();j++){
-                if(this.casillas[i][j].getCantidad()!=e.casillas[i][j].getCantidad()){
-                    igual = false;
-                }
-            }
-        }
-        
-        return igual;
+        return this.getMD5(this.toString()).equals(e.getMD5(e.toString()));
     }
     
     public void iniciarTerreno (int v[]) {        
@@ -192,6 +184,22 @@ public class Estado {
             }
         }           
         return repartido;
+    }
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+ 
+            while(hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
      
     @Override
