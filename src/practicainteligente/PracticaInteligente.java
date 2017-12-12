@@ -11,32 +11,6 @@ enum tipoBusqueda {
 public class PracticaInteligente {
 
     public static void main(String[] args) throws IOException {
-
-//        // Crear terreno mediante la lectura del fichero
-//        System.out.println("TERRENO INICIALMENTE");
-//        Estado inicio=LeerEscribir.leerTerreno("terreno.txt");        
-//        System.out.println(inicio);
-//        
-//        System.out.println("ACCION, ESTADO, COSTO");
-//        // Prueba de generacion de sucesores
-//        ArrayList<accion> acciones=new ArrayList<accion>(inicio.getAcciones());          
-//        EspaciodeEstados espaciodeestados=new EspaciodeEstados();                
-//        ArrayList<Sucesor> sucesores=new ArrayList<Sucesor>(espaciodeestados.sucesor(inicio));        
-//        for (int i=0;i<sucesores.size();i++) 
-//            System.out.println(sucesores.get(i));            
-//        
-//        
-//        System.out.println("PRUEBA DE FRONTERA");
-//        // Prueba insertando 1000 nodos.
-//        Frontera frontera=new Frontera();
-//        frontera.CrearFrontera();
-//        
-//        for (int i=0;i<10;i++) {
-//            frontera.Insertar(new Nodo());
-//        }
-//        while (!frontera.q.isEmpty()) {
-//            System.out.println(frontera.q.poll().getValor());
-//        }
         Scanner sc = new Scanner(System.in);
         int n;
         Estado inicio=null;
