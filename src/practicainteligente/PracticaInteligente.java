@@ -13,17 +13,46 @@ enum tipoBusqueda {anchura,profundidad,costeuniforme,Aasterisco};
 public class PracticaInteligente {
 
     public static void main(String[] args) throws IOException {
-    Scanner sc=new Scanner(System.in);
-    int n;
-    Estado inicio=null;
-    System.out.println("Seleccione la opcion que desea \n1.-Lectura por teclado\n2.-Lectura por fichero\n3.-Inicialización random");
-    n=sc.nextInt();
-    if(n==1){
-        inicio=LeerEscribir.LecturaTeclado(); 
-    }else if(n==2){
-        inicio=LeerEscribir.leerTerreno("terreno.txt"); 
-    }else if(n==3){
-        inicio=LeerEscribir.Random();
+        Scanner sc = new Scanner(System.in);
+        int n;
+        Estado inicio=null;
+        System.out.println("Seleccione la opcion que desea \n1.-Lectura por teclado\n2.-Lectura por fichero\n3.-Inicialización random");
+        n = sc.nextInt();
+        if (n == 1) {
+            inicio = LeerEscribir.LecturaTeclado();
+        } else if (n == 2) {
+            inicio = LeerEscribir.leerTerreno("terreno2.txt");
+        } else if (n == 3) {
+            inicio = LeerEscribir.Random();
+        }
+        System.out.println(inicio);
+        Problema prob = new Problema(new EspaciodeEstados(), inicio);
+        int Prof_Max = 17;
+        int Inc_Prof = 1;
+        boolean solucion = false;
+
+        System.out.println("Escribe 1,2,3,4 (Anchura, Profundidad, Coste Uniforme, A*): ");
+        int opcion = sc.nextInt();
+        switch (opcion) {
+            case 1:
+                solucion = Busqueda_Acotada(prob, tipoBusqueda.anchura, Prof_Max);
+                break;
+            case 2:
+                solucion = Busqueda(prob, tipoBusqueda.profundidad, Prof_Max, Inc_Prof);
+                break;
+            case 3:
+                solucion = Busqueda_Acotada(prob, tipoBusqueda.costeuniforme, Prof_Max);
+                break;
+            case 4:
+                solucion = Busqueda_Acotada(prob, tipoBusqueda.Aasterisco, Prof_Max);
+                break;
+            default:
+                System.out.println("Opcion invalida");
+        }
+
+        if (!solucion) {
+            System.out.println("SOLUCION NO ENCONTRADA");
+        }
     }
     
     System.out.println(inicio);
