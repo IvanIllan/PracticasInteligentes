@@ -10,7 +10,7 @@ public class Nodo implements Comparable<Nodo>{
     private int profundidad;
     private int valor;
     private int heuristica;
-
+    
     public Nodo(Nodo padre, Estado e, accion a,int costo, int profundidad, int valor) {
         this.padre = padre;
         this.e = e;
@@ -27,18 +27,6 @@ public class Nodo implements Comparable<Nodo>{
     
     public Nodo getPadre() {
         return padre;
-    }
-    public int getHeuristica(Estado e){
-        heuristica = 0;
-        Casilla[][] c = e.getCasillas();
-        for (int i=0; i<c.length; i++){
-            for (int j=0; j<c[0].length; j++){
-                if(c[i][j].getCantidad()!=e.getK())
-                    heuristica++;
-            }
-        }
-        
-        return heuristica;
     }
 
     public Estado getE() {
@@ -99,5 +87,18 @@ public class Nodo implements Comparable<Nodo>{
         if (e.getValor() > getValor())
             r = -1;
         return r;
+    }
+
+    int getHeuristica(Estado e) {
+        heuristica = 0;
+        Casilla[][] c = e.getCasillas();
+        for (int i=0; i<c.length; i++){
+            for (int j=0; j<c[0].length; j++){
+                if(c[i][j].getCantidad()!=e.getK())
+                    heuristica++;
+            }
+        }
+        
+        return heuristica;
     }
 }
