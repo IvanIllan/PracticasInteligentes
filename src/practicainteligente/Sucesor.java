@@ -1,6 +1,9 @@
 
 package practicainteligente;
 
+import practicainteligente.Estado;
+import practicainteligente.accion;
+
 public class Sucesor {
     private accion a;
     private Estado e;

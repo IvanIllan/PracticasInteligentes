@@ -1,5 +1,6 @@
 package practicainteligente;
 
+import practicainteligente.Sucesor;
 import java.util.ArrayList;
 
 public class EspaciodeEstados {
