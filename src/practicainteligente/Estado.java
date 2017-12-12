@@ -1,10 +1,10 @@
 package practicainteligente;
 
 import static java.lang.Math.abs;
+import java.util.ArrayList;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 public class Estado {
     private Casilla tractor;
@@ -23,35 +23,23 @@ public class Estado {
         casillas=new Casilla[filas][columnas];       
     }
     
+    boolean isEquals(Estado e) {
+        return this.getMD5(this.toString()).equals(e.getMD5(e.toString()));
+    }
+    
     public void iniciarTerreno (int v[]) {        
         for (int i=0;i<filas;i++) {
             for (int j=0;j<columnas;j++) {
-                casillas[i][j]=new Casilla(i,j,v[getFilas()*i+j]);             
+                casillas[i][j]=new Casilla(i,j,v[4*i+j]);             
             }
         }    
     }
-    
-    public static String getMD5(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-            BigInteger number = new BigInteger(1, messageDigest);
-            String hashtext = number.toString(16);
- 
-            while(hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        }
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
     public Casilla getTractor() {
         return tractor;
     }
-
+    public Casilla[][] getCasillas(){
+        return casillas;
+    }
     public int getK() {
         return this.k;
     }
@@ -63,11 +51,7 @@ public class Estado {
     public int getFilas() {
         return filas;
     }
-    
-    public Casilla[][] getCasillas(){
-        return casillas;
-    }
-    
+
     public int getColumnas() {
         return columnas;
     }   
@@ -85,7 +69,7 @@ public class Estado {
     }
     
     public int getS() {
-        return (Math.max(getCasilla(tractor).getCantidad()-getK(),0));
+        return (getCasilla(tractor).getCantidad()-getK());
     }
     
     public boolean estaDentro(Casilla c) {
@@ -201,6 +185,22 @@ public class Estado {
         }           
         return repartido;
     }
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+ 
+            while(hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
      
     @Override
     public String toString() {
@@ -212,12 +212,6 @@ public class Estado {
             terreno+="\n";
         }    
         return terreno;
-    }
-    
-    boolean isEquals(Estado e) {
-        return this.getMD5(this.toString()).equals(e.getMD5(e.toString()));
-    }
-    
-    
+    }  
 }
 

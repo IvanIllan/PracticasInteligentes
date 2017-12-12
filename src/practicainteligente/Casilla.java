@@ -4,7 +4,7 @@ public class Casilla {
     private int fila;
     private int columna;
     private int cantidad;
-    //private boolean visitada;
+    private boolean visitada;
 
      public Casilla(int fila, int columna) {
         this.fila = fila;
@@ -27,6 +27,14 @@ public class Casilla {
 
     public int getCantidad() {
         return cantidad;
+    }
+    
+    public boolean isVisitada() {
+        return visitada;
+    }
+
+    public void setVisitada(boolean visitada) {
+        this.visitada = visitada;
     }
 
     public void setFila(int fila) {
