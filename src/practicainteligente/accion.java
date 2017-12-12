@@ -40,7 +40,7 @@ public class accion {
         for (int j=0;j<adyacentes.length;j++)                 
             cadena+="("+unidades[j]+",("+adyacentes[j].getFila()+","+adyacentes[j].getColumna()+")),";               
                 
-        cadena+="],"+ cantidadRepartir()+")";
+        cadena+="],"+ (cantidadRepartir() + 1)+")";
         
         return cadena;
     }

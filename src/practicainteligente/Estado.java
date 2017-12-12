@@ -1,6 +1,9 @@
 package practicainteligente;
 
 import static java.lang.Math.abs;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -22,7 +25,7 @@ public class Estado {
         this.columnas = columnas;
         casillas=new Casilla[filas][columnas];       
     }
-    
+
     boolean isEquals(Estado e) {
         return this.getMD5(this.toString()).equals(e.getMD5(e.toString()));
     }
@@ -30,16 +33,32 @@ public class Estado {
     public void iniciarTerreno (int v[]) {        
         for (int i=0;i<filas;i++) {
             for (int j=0;j<columnas;j++) {
-                casillas[i][j]=new Casilla(i,j,v[4*i+j]);             
+                casillas[i][j]=new Casilla(i,j,v[getFilas()*i+j]);             
             }
         }    
     }
+    
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+ 
+            while(hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public Casilla getTractor() {
         return tractor;
     }
-    public Casilla[][] getCasillas(){
-        return casillas;
-    }
+
     public int getK() {
         return this.k;
     }
@@ -51,7 +70,11 @@ public class Estado {
     public int getFilas() {
         return filas;
     }
-
+    
+    public Casilla[][] getCasillas(){
+        return casillas;
+    }
+    
     public int getColumnas() {
         return columnas;
     }   
@@ -69,7 +92,7 @@ public class Estado {
     }
     
     public int getS() {
-        return (getCasilla(tractor).getCantidad()-getK());
+        return (Math.max(getCasilla(tractor).getCantidad()-getK(),0));
     }
     
     public boolean estaDentro(Casilla c) {
@@ -212,6 +235,12 @@ public class Estado {
             terreno+="\n";
         }    
         return terreno;
-    }  
+    }
+    
+    boolean isEquals(Estado e) {
+        return this.getMD5(this.toString()).equals(e.getMD5(e.toString()));
+    }
+    
+    
 }
 
