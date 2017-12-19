@@ -111,7 +111,7 @@ public class PracticaInteligente {
                     aux = new Nodo(n_actual, s.getE(), s.getA(), n_actual.getCosto() + s.getCoste(), n_actual.getProfundidad() + 1, n_actual.getCosto() + s.getCoste());
                 }
                 if (estrategia == tipoBusqueda.Aasterisco) {
-                    aux = new Nodo(n_actual, s.getE(), s.getA(), n_actual.getCosto() + s.getCoste(), n_actual.getProfundidad() + 1, n_actual.getCosto() + s.getCoste() + n_actual.getHeuristica(n_actual.getE()));
+                    aux = new Nodo(n_actual, s.getE(), s.getA(), n_actual.getCosto() + s.getCoste(), n_actual.getProfundidad() + 1, n_actual.getCosto() + s.getCoste() + n_actual.getHeuristica(s.getE()));
                 }
                 LN.add(aux);
             }

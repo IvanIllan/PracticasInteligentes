@@ -24,14 +24,22 @@ public class LeerEscribir {
         int max = sc.nextInt();
         System.out.println("Introduce el numero de dimensiones del tablero");
         int f = sc.nextInt();
-        int c = sc.nextInt();
+        int c = f;
         Estado terreno = new Estado(tractor, k, max, f, c);
         int v[] = new int[f * c];
         int indice = 0;
+        boolean pa=true;
         System.out.println("Introduce las cantidades de las casillas");
         for (int i = 0; i < f; i++) {
             for (int j = 0; j < c; j++) {
+                
                 v[indice] = sc.nextInt();
+                while(v[indice]>max){
+                    System.out.println("Introduce de nuevo la casilla");
+                    v[indice] = sc.nextInt();
+                }
+                    
+                
                 indice++;
             }
         }
@@ -51,14 +59,14 @@ public class LeerEscribir {
         int max = sc.nextInt();
         System.out.println("Introduce el numero de dimensiones del tablero");
         int f = sc.nextInt();
-        int c = sc.nextInt();
+        int c = f;
         Estado terreno = new Estado(tractor, k, max, f, c);
         int v[] = new int[f * c];
         int indice = 0;
         System.out.println("Se inicializará el tablero aleatoriamente");
         for (int i = 0; i < f; i++) {
             for (int j = 0; j < c; j++) {
-                v[indice] = rn.nextInt(10);
+                v[indice] = rn.nextInt(max);
                 indice++;
             }
         }
